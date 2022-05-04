@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI Historic";
+            overflow: hidden;
+        }
+        .circle{
+            width: 200px;
+            height: 200px;
+            border: 50px solid rgb(248, 248, 248);
+            border-right: 50px solid black;
+            border-radius: 50%;
+            /* transition: 0.5s; */
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%) rotate(-180deg);
+            overflow: visible;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Inter";
+        }
+        </style>
+</head>
+<body>
+
+    <div class="circle">
+        <span class="deg">90°</span>
+    </div>
+
+    <script>
+        var circle = document.querySelector('.circle');
+        let deg = document.querySelector('.deg');
+        window.onmousemove = (e)=>{
+            let circleX = circle.getBoundingClientRect().x;
+            let circleY = circle.getBoundingClientRect().y;
+
+            let circleWidth = circle.getBoundingClientRect().width;
+            let circleHeight = circle.getBoundingClientRect().height;
+
+            let mouseX = e.clientX;
+            let mouseY = e.clientY;
+
+            let realCircleX = circleX + circleWidth / 2;
+            let realCircleY = circleY + circleHeight / 2;
+
+            let customX = mouseX - realCircleX;
+            let customY = mouseY - realCircleY;
+
+            let angle = Math.atan2(customY, customX);
+            circle.style.transform = `translate(-50%, -50%) rotate(${angle}rad)`;
+            deg.innerHTML = `${Math.floor(angle * 180 / Math.PI)}°`;
+            deg.style.transform = `rotate(${-angle}rad)`;
+
+        }
+    </script>
+</body>
+</html>
